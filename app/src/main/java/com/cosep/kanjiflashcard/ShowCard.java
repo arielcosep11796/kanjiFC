@@ -1,7 +1,6 @@
 package com.cosep.kanjiflashcard;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,14 +8,12 @@ import com.huxq17.swipecardsview.BaseCardAdapter;
 
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
-public class CardAdapter2 extends BaseCardAdapter {
+public class ShowCard extends BaseCardAdapter {
 
     private List<Model> modelList;
     private Context context;
 
-    public CardAdapter2(List<Model> modelList,Context context) {
+    public ShowCard(List<Model> modelList,Context context) {
         this.modelList = modelList;
         this.context = context;
     }

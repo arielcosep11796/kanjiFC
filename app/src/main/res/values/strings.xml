@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">漢字FlashCard</string>
+    <string name="app_name">N4FlashCard</string>
     <string name="kotoba">言葉</string>
     <string name="kanji">漢字</string>
+    <string name="mixedKanji">Mixed 漢字</string>
     <string name="hiragana">ひらがな</string>
     <string name="imi">meaning</string>
-    <string name="view">View Cards</string>
-    <string name="shuffle">Test</string>
+    <string name="view">フラッシュカード</string>
+    <string name="sCard">シャッフル</string>
+    <string name="test">知識試験</string>
 </resources>

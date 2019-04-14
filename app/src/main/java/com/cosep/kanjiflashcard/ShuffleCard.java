@@ -11,12 +11,12 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class CardAdapter extends BaseCardAdapter {
+public class ShuffleCard extends BaseCardAdapter {
 
     private List<Model> modelList;
     private Context context;
 
-    public CardAdapter(List<Model> modelList,Context context) {
+    public ShuffleCard(List<Model> modelList,Context context) {
         this.modelList = modelList;
         this.context = context;
     }

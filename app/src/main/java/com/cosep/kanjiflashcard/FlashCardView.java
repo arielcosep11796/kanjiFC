@@ -27,10 +27,18 @@ public class FlashCardView extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
+        Intent intent = getIntent();
+        int mode = intent.getExtras().getInt("mode");
         try {
-            modelList = readCsv("漢字復習.csv");
+            String book = "";
+            if(mode==2||mode==4){
+                book = "漢字復習.csv";
+            }else if(mode==3){
+                book = "言葉.csv";
+            }
+            modelList = readCsv(book);
         }catch(IOException e){
-
+            e.printStackTrace();
         }
         swipeCardsView = findViewById(R.id.swpcard);
         swipeCardsView.retainLastCard(true);
@@ -38,14 +46,16 @@ public class FlashCardView extends AppCompatActivity {
 
 
 
-        Intent intent = getIntent();
-        int mode = intent.getExtras().getInt("mode");
-        if(mode==1){
-            CardAdapter2 cardAdapter2 = new CardAdapter2(modelList,getApplicationContext());
-            swipeCardsView.setAdapter(cardAdapter2);
+
+        if(mode==2){
+            ShowCard mixedKanjis = new ShowCard(modelList,getApplicationContext());
+            swipeCardsView.setAdapter(mixedKanjis);
+        }else if(mode==3){
+            ShowCardKotoba kotobas = new ShowCardKotoba(modelList,getApplicationContext());
+            swipeCardsView.setAdapter(kotobas);
         }else{
             Collections.shuffle(modelList);
-            CardAdapter cardAdapter = new CardAdapter(modelList,getApplicationContext());
+            ShuffleCard cardAdapter = new ShuffleCard(modelList,getApplicationContext());
             swipeCardsView.setAdapter(cardAdapter);
         }
 

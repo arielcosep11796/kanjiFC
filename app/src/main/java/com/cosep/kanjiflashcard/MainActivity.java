@@ -28,21 +28,30 @@ public class MainActivity extends AppCompatActivity {
         TinyDB db = new TinyDB(getApplicationContext());
 
 
-        CardView productView =  findViewById(R.id.kanji_Iv);
-        productView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), FlashCardView.class);
-                i.putExtra("mode",1);
-                startActivity(i);
-            }
-        });
-        CardView inventoryView = findViewById(R.id.kotoba_Iv);
-        inventoryView.setOnClickListener(new View.OnClickListener() {
+        CardView mixedKanjiBtn =  findViewById(R.id.mixedKanjiCard);
+        mixedKanjiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getBaseContext(), FlashCardView.class);
                 i.putExtra("mode",2);
+                startActivity(i);
+            }
+        });
+        CardView kotobaBtn = findViewById(R.id.kotobaCard);
+        kotobaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), FlashCardView.class);
+                i.putExtra("mode",3);
+                startActivity(i);
+            }
+        });
+        CardView testBtn = findViewById(R.id.testBtn);
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), FlashCardView.class);
+                i.putExtra("mode",4);
                 startActivity(i);
             }
         });
