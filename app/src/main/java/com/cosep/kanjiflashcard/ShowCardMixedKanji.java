@@ -8,12 +8,12 @@ import com.huxq17.swipecardsview.BaseCardAdapter;
 
 import java.util.List;
 
-public class ShowCard extends BaseCardAdapter {
+public class ShowCardMixedKanji extends BaseCardAdapter {
 
     private List<Model> modelList;
     private Context context;
 
-    public ShowCard(List<Model> modelList,Context context) {
+    public ShowCardMixedKanji(List<Model> modelList,Context context) {
         this.modelList = modelList;
         this.context = context;
     }

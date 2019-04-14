@@ -27,7 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         TinyDB db = new TinyDB(getApplicationContext());
 
-
+        CardView singleKanjiBtn = findViewById(R.id.singleKanjiCard);
+        singleKanjiBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), FlashCardView.class);
+                i.putExtra("mode",1);
+                startActivity(i);
+            }
+        });
         CardView mixedKanjiBtn =  findViewById(R.id.mixedKanjiCard);
         mixedKanjiBtn.setOnClickListener(new View.OnClickListener() {
             @Override

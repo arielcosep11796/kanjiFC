@@ -2,7 +2,7 @@
     <string name="app_name">N4FlashCard</string>
     <string name="kotoba">言葉</string>
     <string name="kanji">漢字</string>
-    <string name="mixedKanji">Mixed 漢字</string>
+    <string name="mixedKanji">混在漢字</string>
     <string name="hiragana">ひらがな</string>
     <string name="imi">meaning</string>
     <string name="view">フラッシュカード</string>

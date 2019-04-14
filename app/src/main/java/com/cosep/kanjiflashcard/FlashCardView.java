@@ -7,6 +7,7 @@ import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.huxq17.swipecardsview.SwipeCardsView;
 
@@ -22,41 +23,48 @@ import java.util.List;
 public class FlashCardView extends AppCompatActivity {
     private SwipeCardsView swipeCardsView;
     private List<Model> modelList = new ArrayList<>();
+    private List<ModelB> modelListB = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
+        swipeCardsView = findViewById(R.id.swpcard);
+        swipeCardsView.retainLastCard(true);
+        swipeCardsView.enableSwipe(true);
         Intent intent = getIntent();
         int mode = intent.getExtras().getInt("mode");
         try {
             String book = "";
-            if(mode==2||mode==4){
+            if(mode==1){
+                book = "singleKanji.csv";
+                modelListB = readCsvSingleKanji(book);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                ShowCardSingleKanji singleKanji = new ShowCardSingleKanji(modelListB,getApplicationContext());
+                swipeCardsView.setAdapter(singleKanji);
+            }else if(mode==2||mode==4){
                 book = "漢字復習.csv";
+                modelList = readCsv(book);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                ShowCardMixedKanji mixedKanjis = new ShowCardMixedKanji(modelList,getApplicationContext());
+                swipeCardsView.setAdapter(mixedKanjis);
             }else if(mode==3){
                 book = "言葉.csv";
+                modelList = readCsv(book);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                ShowCardKotoba kotobas = new ShowCardKotoba(modelList,getApplicationContext());
+                swipeCardsView.setAdapter(kotobas);
+            }else if(mode==4){
+                modelList = readCsv("言葉.csv");
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                Collections.shuffle(modelList);
+                ShuffleCard cardAdapter = new ShuffleCard(modelList,getApplicationContext());
+                swipeCardsView.setAdapter(cardAdapter);
+                Toast.makeText(getApplicationContext(),"Size:"+modelList.size(),Toast.LENGTH_SHORT).show();
             }
-            modelList = readCsv(book);
+
         }catch(IOException e){
             e.printStackTrace();
-        }
-        swipeCardsView = findViewById(R.id.swpcard);
-        swipeCardsView.retainLastCard(true);
-        swipeCardsView.enableSwipe(true);
-
-
-
-
-        if(mode==2){
-            ShowCard mixedKanjis = new ShowCard(modelList,getApplicationContext());
-            swipeCardsView.setAdapter(mixedKanjis);
-        }else if(mode==3){
-            ShowCardKotoba kotobas = new ShowCardKotoba(modelList,getApplicationContext());
-            swipeCardsView.setAdapter(kotobas);
-        }else{
-            Collections.shuffle(modelList);
-            ShuffleCard cardAdapter = new ShuffleCard(modelList,getApplicationContext());
-            swipeCardsView.setAdapter(cardAdapter);
         }
 
     }
@@ -76,6 +84,22 @@ public class FlashCardView extends AppCompatActivity {
                     i++;
                 }
                 modelList.add(new Model(tokens[1],tokens[0],meaning.toString().replace("\"","")));
+            }
+        }catch(IOException e){
+
+        }
+        return modelList;
+    }
+
+    private List<ModelB> readCsvSingleKanji(String filename) throws IOException{
+        InputStream is = getApplicationContext().getAssets().open(filename);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        String line="";
+        List<ModelB> modelList = new ArrayList<>();
+        try{
+            while((line = reader.readLine())!=null){
+                String[] tokens = line.split(",");
+                modelList.add(new ModelB(tokens[0],tokens[1].replace(";",", "),tokens[2].replace(";",", "),tokens[3]));
             }
         }catch(IOException e){
 
