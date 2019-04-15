@@ -11,7 +11,6 @@ import java.util.List;
 public class ShowCardSingleKanji extends BaseCardAdapter {
 
     private List<ModelB> modelList;
-    private Context context;
 
     public ShowCardSingleKanji(List<ModelB> modelList,Context context) {
         this.modelList = modelList;
