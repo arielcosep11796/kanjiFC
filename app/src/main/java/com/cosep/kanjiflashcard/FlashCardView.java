@@ -34,33 +34,30 @@ public class FlashCardView extends AppCompatActivity {
         swipeCardsView.enableSwipe(true);
         Intent intent = getIntent();
         int mode = intent.getExtras().getInt("mode");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         try {
             String book = "";
             if(mode==1){
                 book = "singleKanji.csv";
                 modelListB = readCsvSingleKanji(book);
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 ShowCardSingleKanji singleKanji = new ShowCardSingleKanji(modelListB,getApplicationContext());
                 swipeCardsView.setAdapter(singleKanji);
-            }else if(mode==2||mode==4){
+            }else if(mode==2){
                 book = "漢字復習.csv";
                 modelList = readCsv(book);
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 ShowCardMixedKanji mixedKanjis = new ShowCardMixedKanji(modelList,getApplicationContext());
                 swipeCardsView.setAdapter(mixedKanjis);
             }else if(mode==3){
                 book = "言葉.csv";
                 modelList = readCsv(book);
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 ShowCardKotoba kotobas = new ShowCardKotoba(modelList,getApplicationContext());
                 swipeCardsView.setAdapter(kotobas);
             }else if(mode==4){
-                modelList = readCsv("言葉.csv");
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                modelList = readCsv("漢字復習.csv");
+                modelList.addAll(readCsv("言葉.csv"));
                 Collections.shuffle(modelList);
                 ShuffleCard cardAdapter = new ShuffleCard(modelList,getApplicationContext());
                 swipeCardsView.setAdapter(cardAdapter);
-                Toast.makeText(getApplicationContext(),"Size:"+modelList.size(),Toast.LENGTH_SHORT).show();
             }
 
         }catch(IOException e){

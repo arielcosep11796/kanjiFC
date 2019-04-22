@@ -14,7 +14,6 @@ public class ShowCardSingleKanji extends BaseCardAdapter {
 
     public ShowCardSingleKanji(List<ModelB> modelList,Context context) {
         this.modelList = modelList;
-        this.context = context;
     }
 
     @Override

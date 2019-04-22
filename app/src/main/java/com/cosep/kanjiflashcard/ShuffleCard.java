@@ -36,13 +36,19 @@ public class ShuffleCard extends BaseCardAdapter {
         if(modelList!=null||modelList.size()!=0){
             TextView kanji = cardview.findViewById(R.id.kanji);
             final TextView hiragana = cardview.findViewById(R.id.hiragana);
-            hiragana.setVisibility(TextView.INVISIBLE);
             final TextView imi = cardview.findViewById(R.id.imi);
-            imi.setVisibility(TextView.INVISIBLE);
             Model model = modelList.get(position);
-            kanji.setText(model.getKanji());
-            hiragana.setText(model.getHiragana());
-            imi.setText(model.getImi());
+            imi.setVisibility(TextView.INVISIBLE);
+            hiragana.setVisibility(TextView.INVISIBLE);
+            if(model.getKanji()==null || model.getKanji().isEmpty()){
+                kanji.setText(model.getHiragana());
+                hiragana.setText(model.getImi());
+                imi.setText("");
+            }else{
+                kanji.setText(model.getKanji());
+                hiragana.setText(model.getHiragana());
+                imi.setText(model.getImi());
+            }
             cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
